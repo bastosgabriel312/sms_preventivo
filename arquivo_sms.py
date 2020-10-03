@@ -47,21 +47,21 @@ def inserir_linha(idx, df, df_inserir):
 
 
 def num_teste(arquivo):
-    dataset = pd.read_fwf(""+arquivo+".txt", sep=';',dtype='unicode')
+    dataset = pd.read_fwf(""+arquivo+".txt", sep=';',dtype='unicode', header = None)
     return dataset
 
 def sms_semparar(arquivo,frase):
     #pandas lê o arquivo (.txt) e coloca dentro da variavel
-    dataset = pd.read_fwf(""+arquivo+".txt", sep=';',dtype='unicode')
+    dataset = pd.read_fwf(""+arquivo+".txt", sep=';',dtype='unicode', header = None)
     #retorno da função num_teste dentro de uma variavel lendo o arquivo 'numteste.txt'
     dic = num_teste('numteste')
     #Uso da função inserir_linha para mescar dois dataframes
     dataset = inserir_linha(0, dataset, dic)
     #Uso da função dividir_coluna para separar os números dos nomes
-    dataset = dividir_coluna(dataset, ';','1')
+    dataset = dividir_coluna(dataset, ';',0)
     print(dataset)
     #define duas colunas no dataframe: |1|frase|
-    dataset = pd.DataFrame(dataset, columns = ['1','frase'])
+    dataset = pd.DataFrame(dataset, columns = [0,'frase'])
     #todas as linhas da coluna frase recebem o parametro frase
     dataset['frase'] = frase
     return dataset
@@ -79,13 +79,4 @@ def d_mais_um():
         
 
     return d_1
-
-        
-
-
-###########definir dados csv###########
-#dataset.rename(columns={'numero':""}, inplace = True)
-#tabela = dataset.head()
-#dataset.describe()
-        
 
